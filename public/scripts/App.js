@@ -1,7 +1,27 @@
-"use strict";
+'use strict';
 
 console.log("app.js is running");
 
+var user = {
+  name: 'Luis',
+  age: 17,
+  location: 'raleigh'
+};
+
+function getLocation(location) {
+  if (location) {
+    return React.createElement(
+      'p',
+      null,
+      'Location: ',
+      location
+    );
+  } else {
+    return undefined;
+  }
+}
+
+var appRoot = document.getElementById('app');
 var info = {
   title: 'Indecision App',
   par: "this is some info",
@@ -27,78 +47,56 @@ var onRemoveAll = function onRemoveAll() {
   render();
 };
 
+var numbers = [55, 101, 1000];
+
 var render = function render() {
   var template = React.createElement(
-    "div",
+    'div',
     null,
     React.createElement(
-      "h1",
+      'h1',
       null,
       info.title && info.title
     ),
     info.par && React.createElement(
-      "p",
+      'p',
       null,
       info.par
     ),
     info.options.length > 0 ? 'Here are you options' : 'No Options',
     React.createElement(
-      "p",
+      'p',
       null,
       info.options.length
     ),
     React.createElement(
-      "button",
+      'button',
       { onClick: onRemoveAll },
-      "Remove All"
+      'Remove All'
     ),
     React.createElement(
-      "ol",
+      'ol',
       null,
-      React.createElement(
-        "li",
-        null,
-        info.item1
-      ),
-      React.createElement(
-        "li",
-        null,
-        info.item2
-      )
+      info.options.map(function (option) {
+        return React.createElement(
+          'li',
+          { key: option },
+          option
+        );
+      })
     ),
     React.createElement(
-      "form",
+      'form',
       { onSubmit: onFormSubmit },
-      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement('input', { type: 'text', name: 'option' }),
       React.createElement(
-        "button",
+        'button',
         null,
-        "Add Option"
+        'Add Option'
       )
     )
   );
   ReactDOM.render(template, appRoot);
 };
-
-var user = {
-  name: 'Luis',
-  age: 17,
-  location: 'raleigh'
-};
-
-function getLocation(location) {
-  if (location) {
-    return React.createElement(
-      "p",
-      null,
-      "Location: ",
-      location
-    );
-  } else {
-    return undefined;
-  }
-}
-
-var appRoot = document.getElementById('app');
 
 render();

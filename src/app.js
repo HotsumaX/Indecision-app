@@ -2,6 +2,21 @@
 
 console.log("app.js is running")
 
+ const user = {
+    name: 'Luis',
+    age: 17,
+    location: 'raleigh',
+  }
+
+  function getLocation(location)  {
+    if (location){
+      return <p>Location: {location}</p>
+    }else{
+      return undefined
+    }
+  } 
+
+  const appRoot = document.getElementById('app')
 const info = {
   title: 'Indecision App',
   par: "this is some info",
@@ -27,6 +42,8 @@ const onRemoveAll =() =>{
   render()
 }
 
+const numbers = [55,101,1000]
+
 const render= () =>{
   const template = (
 <div>
@@ -35,9 +52,18 @@ const render= () =>{
   {info.options.length > 0 ? 'Here are you options': 'No Options'}
   <p>{info.options.length}</p>
   <button onClick={onRemoveAll}>Remove All</button>
+  {/* {
+    numbers.map(number => {
+      return <p key={number}>Number: {number}</p>
+    })
+  } */}
   <ol>
-    <li>{info.item1}</li>
-    <li>{info.item2}</li>
+    {/* <li>{info.item1}</li>
+    <li>{info.item2}</li> */}
+
+    {info.options.map(option =>{
+      return <li key={option}>{option}</li>
+    })}
   </ol>
 
     <form onSubmit={onFormSubmit} >
@@ -49,20 +75,6 @@ const render= () =>{
   }
 
 
-  const user = {
-    name: 'Luis',
-    age: 17,
-    location: 'raleigh',
-  }
-
-  function getLocation(location)  {
-    if (location){
-      return <p>Location: {location}</p>
-    }else{
-      return undefined
-    }
-  } 
-
-  const appRoot = document.getElementById('app')
+ 
 
   render()
