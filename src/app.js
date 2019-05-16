@@ -42,6 +42,12 @@ const onRemoveAll =() =>{
   render()
 }
 
+const onMakeDecision = () => {
+  const randomNum = Math.floor(Math.random() * info.options.length)
+  const option = info.options[randomNum]
+  alert(option)
+}
+
 const numbers = [55,101,1000]
 
 const render= () =>{
@@ -50,7 +56,10 @@ const render= () =>{
   <h1>{info.title && info.title}</h1> 
   {info.par && <p>{info.par}</p>}
   {info.options.length > 0 ? 'Here are you options': 'No Options'}
-  <p>{info.options.length}</p>
+  {/* <p>{info.options.length}</p> */}
+  <br/>
+  <button disabled={info.options.length === 0} onClick={onMakeDecision}>what should I do</button>
+  <br/>
   <button onClick={onRemoveAll}>Remove All</button>
   {/* {
     numbers.map(number => {
