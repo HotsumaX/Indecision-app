@@ -7,38 +7,78 @@ var info = {
   par: "this is some info",
   item1: 'Item one',
   item2: 'Item two',
-  options: ['one', 'two']
+  options: []
 };
 
-var template = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    info.title && info.title
-  ),
-  info.par && React.createElement(
-    "p",
-    null,
-    info.par
-  ),
-  info.options.lenghth > 0 ? 'here are you options' : 'no options',
-  React.createElement(
-    "ol",
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  console.log("form submitted!");
+  var option = e.target.elements.option.value;
+  console.log(option);
+  if (option) {
+    info.options.push(option);
+    e.target.elements.option.value = "";
+    render();
+  }
+};
+
+var onRemoveAll = function onRemoveAll() {
+  info.options = [];
+  render();
+};
+
+var render = function render() {
+  var template = React.createElement(
+    "div",
     null,
     React.createElement(
-      "li",
+      "h1",
       null,
-      info.item1
+      info.title && info.title
+    ),
+    info.par && React.createElement(
+      "p",
+      null,
+      info.par
+    ),
+    info.options.length > 0 ? 'Here are you options' : 'No Options',
+    React.createElement(
+      "p",
+      null,
+      info.options.length
     ),
     React.createElement(
-      "li",
+      "button",
+      { onClick: onRemoveAll },
+      "Remove All"
+    ),
+    React.createElement(
+      "ol",
       null,
-      info.item2
+      React.createElement(
+        "li",
+        null,
+        info.item1
+      ),
+      React.createElement(
+        "li",
+        null,
+        info.item2
+      )
+    ),
+    React.createElement(
+      "form",
+      { onSubmit: onFormSubmit },
+      React.createElement("input", { type: "text", name: "option" }),
+      React.createElement(
+        "button",
+        null,
+        "Add Option"
+      )
     )
-  )
-);
+  );
+  ReactDOM.render(template, appRoot);
+};
 
 var user = {
   name: 'Luis',
@@ -59,60 +99,6 @@ function getLocation(location) {
   }
 }
 
-// const templateTwo = (
-//   <div>
-//     <h1>{user.name ? user.name : 'Anonymous'}</h1>
-//     {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-//     {getLocation(user.location)}
-//   </div>
-// )
-var count = 0;
-
-var addOne = function addOne() {
-  count++;
-  renderCounterApp();
-  console.log("add one ");
-};
-var minusOne = function minusOne() {
-  count--;
-  renderCounterApp();
-  console.log("minus two ");
-};
-var reset = function reset() {
-  count = 0;
-  renderCounterApp();
-  console.log(" reset number");
-};
-
 var appRoot = document.getElementById('app');
 
-var renderCounterApp = function renderCounterApp() {
-  var templateTwo = React.createElement(
-    "div",
-    null,
-    React.createElement(
-      "h1",
-      null,
-      "Count: ",
-      count
-    ),
-    React.createElement(
-      "button",
-      { id: "id", className: "button", onClick: addOne },
-      "+1"
-    ),
-    React.createElement(
-      "button",
-      { id: "id", className: "button", onClick: minusOne },
-      "-1"
-    ),
-    React.createElement(
-      "button",
-      { id: "id", className: "button", onClick: reset },
-      "Reset Count"
-    )
-  );
-  ReactDOM.render(templateTwo, appRoot);
-};
-
-renderCounterApp();
+render();

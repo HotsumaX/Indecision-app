@@ -7,19 +7,47 @@ const info = {
   par: "this is some info",
   item1: 'Item one',
   item2: 'Item two',
-  options:['one','two']
+  options:[]
 }
 
-const template = (
+const onFormSubmit = (e) => { 
+  e.preventDefault()
+  console.log("form submitted!")
+  const option = e.target.elements.option.value
+  console.log(option)
+  if (option) {
+    info.options.push(option)
+    e.target.elements.option.value = ""
+    render()
+  }
+}
+
+const onRemoveAll =() =>{
+  info.options = []
+  render()
+}
+
+const render= () =>{
+  const template = (
 <div>
   <h1>{info.title && info.title}</h1> 
   {info.par && <p>{info.par}</p>}
-  {info.options.lenghth > 0 ? 'here are you options': 'no options'}
+  {info.options.length > 0 ? 'Here are you options': 'No Options'}
+  <p>{info.options.length}</p>
+  <button onClick={onRemoveAll}>Remove All</button>
   <ol>
     <li>{info.item1}</li>
     <li>{info.item2}</li>
   </ol>
+
+    <form onSubmit={onFormSubmit} >
+      <input type="text" name="option" />
+      <button>Add Option</button>
+    </form>
   </div>)
+   ReactDOM.render(template, appRoot) 
+  }
+
 
   const user = {
     name: 'Luis',
@@ -35,45 +63,6 @@ const template = (
     }
   } 
 
+  const appRoot = document.getElementById('app')
 
-
-// const templateTwo = (
-//   <div>
-//     <h1>{user.name ? user.name : 'Anonymous'}</h1>
-//     {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-//     {getLocation(user.location)}
-//   </div>
-// )
-let count = 0
-
-const addOne = () =>{
-  count++
-  renderCounterApp()
-  console.log("add one ")
-}
-const minusOne=()=>{
-  count--
-  renderCounterApp()
-  console.log("minus two ")
-}
-const reset = () => {
-  count = 0
-  renderCounterApp()
-  console.log(" reset number")
-}
-
-const appRoot = document.getElementById('app')
-
-const renderCounterApp = () => {
-  const templateTwo = (
-  <div>
-    <h1>Count: {count}</h1>
-    <button id="id" className='button' onClick={addOne}>+1</button>
-    <button id="id" className='button' onClick={minusOne}>-1</button>
-    <button id="id" className='button' onClick={reset}>Reset Count</button>
-  </div>
-)
-ReactDOM.render(templateTwo,appRoot)
-}
-
-renderCounterApp()
+  render()
