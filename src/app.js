@@ -16,7 +16,8 @@ console.log("app.js is running")
     }
   } 
 
-  const appRoot = document.getElementById('app')
+const appRoot = document.getElementById('app')
+
 const info = {
   title: 'Indecision App',
   par: "this is some info",

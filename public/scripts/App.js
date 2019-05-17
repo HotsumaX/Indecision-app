@@ -22,6 +22,7 @@ function getLocation(location) {
 }
 
 var appRoot = document.getElementById('app');
+
 var info = {
   title: 'Indecision App',
   par: "this is some info",
